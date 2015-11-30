@@ -23,11 +23,13 @@ class apriori:
         num = 0
         for line in file:
             num = num + 1
-            line = (line.strip('\n')).split(',')
+            line = line.strip('\n')
+            line = (line.strip('\r')).split(',')
             for item in line:
-                if (item,) not in self.supp.keys():
-                    self.supp[(item,)] = []
-                self.supp[(item,)].append(num)
+                if item !='' and item !='\r':
+                    if (item,) not in self.supp.keys():
+                        self.supp[(item,)] = []
+                    self.supp[(item,)].append(num)
         self.lines = num
 
         candidateK = []
@@ -84,7 +86,7 @@ class apriori:
 
 
 if __name__ == '__main__':
-    data = apriori('test.csv',0.7,0.5)
+    data = apriori('wifi_hotspot_location_refined.csv',0.1,0.5)
     count = data.parse()
     i = 1
     while(i < count and data.flag == 0):
