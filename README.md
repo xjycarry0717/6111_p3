@@ -7,6 +7,15 @@ Jiaying Xu - jx2238
 b. Files:
 README
 apriori.py
+main.py
+
+c. How to run
+python main.py <filename> <min_supp> <min_conf>
+<account key>: 	csv file name
+<t_es>:   		float in (0, 1)
+<t_ec>:       	float in (0, 1)
+
+
 
 
 Part 2 Association Rule Mining Algorithm

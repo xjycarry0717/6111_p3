@@ -1,7 +1,6 @@
 import os
 import json
 import itertools
-import csv
 
 class apriori:
     def __init__(self, filename, minSupp, minConf):
@@ -85,21 +84,21 @@ class apriori:
             self.flag = 1
 
 
-if __name__ == '__main__':
-    data = apriori('wifi_hotspot_location_refined.csv',0.1,0.5)
-    count = data.parse()
-    i = 1
-    while(i < count and data.flag == 0):
-        data.generate()
-        data.calc()
-        i = i + 1;
+    def run(self,):
+        #data = apriori('wifi_hotspot_location_refined.csv',0.1,0.5)
+        count = self.parse()
+        i = 1
+        while(i < count and self.flag == 0):
+            self.generate()
+            self.calc()
+            i = i + 1;
 
-    f = open("output.txt", 'w')
-    f.write('==Frequent itemsets (min_sup=' + str(data.minsupp*100.0) + '%)\n')
-    for item in sorted(data.supp, key = lambda item: len(data.supp[item]), reverse = True):
-        f.write(str(list(item)) + ', ' + str(len(data.supp[tuple(sorted(item))])*100.0/data.lines)+ '%\n')
-    f.write('\n')
-    f.write('==High-confidence association rules (min_conf=' + str(data.minconf*100.0) + '%)\n')
-    for key, value in sorted(data.conf.items(), key = lambda (key, value): value[0], reverse = True):
-        f.write(str(list(key[0])) + ' => ' + str(list(key[1])) + ' (Conf: ' + str(value[0]) + '%, Supp: ' + str(value[1]) + '%)\n')
-    f.close()
+        f = open("output.txt", 'w')
+        f.write('==Frequent itemsets (min_sup=' + str(self.minsupp*100.0) + '%)\n')
+        for item in sorted(self.supp, key = lambda item: len(self.supp[item]), reverse = True):
+            f.write(str(list(item)) + ', ' + str(len(self.supp[tuple(sorted(item))])*100.0/self.lines)+ '%\n')
+        f.write('\n')
+        f.write('==High-confidence association rules (min_conf=' + str(self.minconf*100.0) + '%)\n')
+        for key, value in sorted(self.conf.items(), key = lambda (key, value): value[0], reverse = True):
+            f.write(str(list(key[0])) + ' => ' + str(list(key[1])) + ' (Conf: ' + str(value[0]) + '%, Supp: ' + str(value[1]) + '%)\n')
+        f.close()
